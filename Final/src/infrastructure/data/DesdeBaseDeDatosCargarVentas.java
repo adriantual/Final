@@ -24,14 +24,12 @@ public class DesdeBaseDeDatosCargarVentas implements CargarVentas {
 	public List<VentasRecordPortOut> cargarVentas() {
 		String consultaRegistro = "select * from registro_compra";
 		List<VentasRecordPortOut> unaLista = new ArrayList<VentasRecordPortOut>();
-		try {
-			Connection dbconn = this.connStr.open();
-			Statement statement = dbconn.createStatement();
+		try (Connection dbconn = this.connStr.open(); Statement statement = dbconn.createStatement()) {
 
 			ResultSet rs = statement.executeQuery(consultaRegistro);
 			while (rs.next()) {
 
-				VentasRecordPortOut unaVenta = new VentasRecordPortOut(rs.getString("fecha").substring(0, 19),
+				VentasRecordPortOut unaVenta = new VentasRecordPortOut(rs.getString("fecha"),
 						rs.getString("cantidadLitros"), rs.getString("monto"));
 
 				unaLista.add(unaVenta);

@@ -29,10 +29,4 @@ public class ExtraSuper extends Nafta {
 		return 1;
 	}
 
-	@Override
-	public String tipo() {
-		// TODO Auto-generated method stub
-		return this.nombre;
-	}
-
 }

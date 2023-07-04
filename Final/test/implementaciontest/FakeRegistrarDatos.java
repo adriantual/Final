@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import domain.portsout.ExcepcionesPortsOut;
 import domain.portsout.RegistrarCompra;
 
-public class FakeEnBaseDeDatosRegistrar implements RegistrarCompra {
+public class FakeRegistrarDatos implements RegistrarCompra {
 
 	private Integer litrosFake;
 	private Double montoFake;

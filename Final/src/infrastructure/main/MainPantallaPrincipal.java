@@ -5,25 +5,23 @@ import java.awt.EventQueue;
 import domain.modelo.ImplementacionEstacionEsHoy;
 import infrastructure.data.DesdeArchivoCargarVentas;
 import infrastructure.data.EnArchivoDeTextoPlanoRegistrarCompra;
-import infrastructure.ui.CargaDeCombustible;
+import infrastructure.ui.PantallaPrincipal;
 
-public class MainCargarCombustibleEnArchivo {
+public class MainPantallaPrincipal {
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CargaDeCombustible frame = new CargaDeCombustible(
+					PantallaPrincipal frame = new PantallaPrincipal(
 							new ImplementacionEstacionEsHoy(new EnArchivoDeTextoPlanoRegistrarCompra("registro"),
 									new DesdeArchivoCargarVentas("registro")));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-
 				}
 			}
 		});
-
 	}
 
 }

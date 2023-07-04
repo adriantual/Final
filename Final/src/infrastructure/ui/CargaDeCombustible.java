@@ -1,5 +1,8 @@
 package infrastructure.ui;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
@@ -30,30 +33,36 @@ public class CargaDeCombustible extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(128, 128, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Cantidad de litros que desea cargar");
-		lblNewLabel.setBounds(46, 150, 182, 14);
+		JLabel lblNewLabel = new JLabel("¿CUANTOS LITROS DESEA CARGAR?");
+		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+		lblNewLabel.setBounds(34, 114, 218, 14);
 		contentPane.add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("Tipo de nafta");
-		lblNewLabel_1.setBounds(46, 80, 94, 14);
+		JLabel lblNewLabel_1 = new JLabel("TIPO DE NAFTA");
+		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+		lblNewLabel_1.setBounds(73, 40, 109, 14);
 		contentPane.add(lblNewLabel_1);
 
 		JComboBox<String> tipoDeNafta = new JComboBox<String>();
-		tipoDeNafta.setBounds(268, 64, 118, 22);
+		tipoDeNafta.setBounds(268, 36, 118, 22);
 		contentPane.add(tipoDeNafta);
 		cargarComboBox(tipoDeNafta);
 
 		cantidadDeLitros = new JTextField();
-		cantidadDeLitros.setBounds(284, 147, 86, 20);
+		cantidadDeLitros.setBounds(268, 111, 118, 20);
 		contentPane.add(cantidadDeLitros);
 		cantidadDeLitros.setColumns(10);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes\\images.png"));
+		this.setTitle("CARGAR NAFTA");
 
-		JButton consultarPrecio = new JButton("Consultar Precio");
+		JButton consultarPrecio = new JButton("CONSULTAR PRECIO");
+		consultarPrecio.setFont(new Font("Times New Roman", Font.PLAIN, 11));
 		consultarPrecio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				consultarPrecio.setEnabled(false);
@@ -69,10 +78,11 @@ public class CargaDeCombustible extends JFrame {
 				consultarPrecio.setEnabled(true);
 			}
 		});
-		consultarPrecio.setBounds(55, 203, 127, 47);
+		consultarPrecio.setBounds(55, 203, 148, 47);
 		contentPane.add(consultarPrecio);
 
-		JButton confirmarCompra = new JButton("Confirmar compra");
+		JButton confirmarCompra = new JButton("CONFIRMAR COMPRA");
+		confirmarCompra.setFont(new Font("Times New Roman", Font.PLAIN, 11));
 		confirmarCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				confirmarCompra.setEnabled(false);
@@ -89,7 +99,7 @@ public class CargaDeCombustible extends JFrame {
 				confirmarCompra.setEnabled(true);
 			}
 		});
-		confirmarCompra.setBounds(268, 203, 127, 47);
+		confirmarCompra.setBounds(247, 203, 148, 47);
 		contentPane.add(confirmarCompra);
 	}
 

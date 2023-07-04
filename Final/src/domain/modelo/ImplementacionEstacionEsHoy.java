@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import domain.portsin.EstacionServicioEsHoy;
 import domain.portsin.ExcepcionesPortsIn;
@@ -38,18 +37,24 @@ public class ImplementacionEstacionEsHoy implements EstacionServicioEsHoy {
 
 	// CONSULTAR COMO PONER EXCEPCION SI ENTRA VACIO
 	private void validarLitros(String cantidadLitros) throws ExcepcionesPortsIn {
+
+		if (cantidadLitros.isEmpty())
+			throw new ExcepcionesPortsIn("el campo esta vacio, debe ingresar la cantidad de litros deseada");
 		try {
-			if (Integer.parseInt(cantidadLitros) < 0)
-				throw new ExcepcionesPortsIn("la cantidad de litros debe ser mayor a 0");
+			int litros = Integer.parseInt(cantidadLitros);
+
+			if (litros <= 0)
+				throw new ExcepcionesPortsIn("La cantidad de litros debe ser mayor a 0");
 		} catch (NumberFormatException e) {
-			throw new ExcepcionesPortsIn("el caracter ingresado debe ser un numero");
+			throw new ExcepcionesPortsIn("El valor ingresado no es un número válido");
 		}
+
 	}
 
 	@Override
 	public double calcularPrecio(String tipoNafta, String cantidadLitros, LocalDateTime unaFecha)
 			throws ExcepcionesPortsIn {
-		Objects.requireNonNull(cantidadLitros);
+
 		this.validarLitros(cantidadLitros);
 		double total = 0;
 		for (Nafta nafta : naftas) {
@@ -70,6 +75,7 @@ public class ImplementacionEstacionEsHoy implements EstacionServicioEsHoy {
 	public void confirmarCompra(String tipoNafta, String cantidadLitros, LocalDateTime unaFecha)
 			throws ExcepcionesPortsIn {
 		double total = this.calcularPrecio(tipoNafta, cantidadLitros, unaFecha);
+		Ventas unaVenta = new Ventas(unaFecha, Integer.parseInt(cantidadLitros), total);
 		try {
 			registrarCompra.registro(unaFecha, Integer.parseInt(cantidadLitros), total);
 		} catch (ExcepcionesPortsOut e) {
@@ -110,7 +116,7 @@ public class ImplementacionEstacionEsHoy implements EstacionServicioEsHoy {
 		List<VentasRecordPortOut> ventasRecord = cargarVentas.cargarVentas();
 		List<Ventas> ventas = new ArrayList<Ventas>();
 		for (VentasRecordPortOut unaVenta : ventasRecord) {
-			String fechaVenta = unaVenta.fecha();
+			String fechaVenta = unaVenta.fecha().substring(0, 19);
 			String nombre = unaVenta.litros();
 			String duracion = unaVenta.total();
 

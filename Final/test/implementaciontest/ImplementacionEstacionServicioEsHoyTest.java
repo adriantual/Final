@@ -18,8 +18,8 @@ class ImplementacionEstacionServicioEsHoyTest {
 	public static final String FECHA_LUNES = "2023-06-12T10:30:15";
 	private static final LocalDateTime LUNES = LocalDateTime.parse(FECHA_LUNES);
 
-	ImplementacionEstacionEsHoy miEstacion = new ImplementacionEstacionEsHoy(new FakeEnBaseDeDatosRegistrar(),
-			new FakeDesdeArchivoCargarDatos());
+	ImplementacionEstacionEsHoy miEstacion = new ImplementacionEstacionEsHoy(new FakeRegistrarDatos(),
+			new FakeCargarDatos());
 
 	// TEST: PRECIOS EXTRA SUPER
 
@@ -45,7 +45,9 @@ class ImplementacionEstacionServicioEsHoyTest {
 	@Test
 	void calcularPrecioSuperSinDescuento() {
 
-		assertEquals(2700.00, miEstacion.calcularPrecio("Super", "10", LUNES));
+		double total = miEstacion.calcularPrecio("Super", "10", LUNES);
+
+		assertEquals(2700.00, total);
 
 	}
 
@@ -94,10 +96,10 @@ class ImplementacionEstacionServicioEsHoyTest {
 	@Test
 	void interfazRegistrar() {
 
-		FakeEnBaseDeDatosRegistrar EnBaseDeDatosFake = new FakeEnBaseDeDatosRegistrar();
+		FakeRegistrarDatos EnBaseDeDatosFake = new FakeRegistrarDatos();
 
 		ImplementacionEstacionEsHoy miEstacionHoy = new ImplementacionEstacionEsHoy(EnBaseDeDatosFake,
-				new FakeDesdeArchivoCargarDatos());
+				new FakeCargarDatos());
 
 		miEstacionHoy.confirmarCompra("Extra Super", "10", LUNES);
 		assertTrue(EnBaseDeDatosFake.seRegistroCorrectamente(10, 3900.00));
@@ -114,9 +116,9 @@ class ImplementacionEstacionServicioEsHoyTest {
 		// Y LOS AGREGA A UNA LISTA QUE RETORNA PARA UTILIZAR EN EL MODELO.
 		// SE HACE UN ASSERTEQUALS PARA SABER SI SE CARGARON LAS 5 VENTAS
 		// HARCODEADAS MANUALMENTE EN LA INTERFAZ FAKE
-		FakeDesdeArchivoCargarDatos cargarDatos = new FakeDesdeArchivoCargarDatos();
+		FakeCargarDatos cargarDatos = new FakeCargarDatos();
 
-		ImplementacionEstacionEsHoy miEstacionHoy = new ImplementacionEstacionEsHoy(new FakeEnBaseDeDatosRegistrar(),
+		ImplementacionEstacionEsHoy miEstacionHoy = new ImplementacionEstacionEsHoy(new FakeRegistrarDatos(),
 				cargarDatos);
 
 		List<VentasRecord> lista = new ArrayList<VentasRecord>();
@@ -131,11 +133,12 @@ class ImplementacionEstacionServicioEsHoyTest {
 	@Test
 	void tiposYCantidadDeNafta() {
 
-		NaftaRecord superr = new NaftaRecord("super");
-		NaftaRecord extraSuper = new NaftaRecord("Extra super");
-		assertEquals(2, miEstacion.tiposDeNafta().size());
-		assertTrue(miEstacion.tiposDeNafta().contains(superr));
-		assertTrue(miEstacion.tiposDeNafta().contains(extraSuper));
+		NaftaRecord superr = new NaftaRecord("Super");
+		NaftaRecord extraSuper = new NaftaRecord("Extra Super");
+		List<NaftaRecord> lista = miEstacion.tiposDeNafta();
+		assertEquals(2, lista.size());
+		assertTrue(lista.contains(superr));
+		assertTrue(lista.contains(extraSuper));
 
 	}
 

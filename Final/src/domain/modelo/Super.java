@@ -11,7 +11,7 @@ public class Super extends Nafta {
 
 	public Super() {
 		super("Super");
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override
@@ -45,13 +45,7 @@ public class Super extends Nafta {
 		if (fecha.getDayOfWeek() == DayOfWeek.SATURDAY && cantidadLitros > 20) {
 			return total = DESCUENTO_SABADOS;
 		}
-		return total = 1;
-	}
-
-	@Override
-	public String tipo() {
-		// TODO Auto-generated method stub
-		return this.nombre;
+		return 1;
 	}
 
 }

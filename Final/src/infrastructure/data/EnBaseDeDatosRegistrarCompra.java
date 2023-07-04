@@ -22,9 +22,8 @@ public class EnBaseDeDatosRegistrarCompra implements RegistrarCompra {
 	public void registro(LocalDateTime fecha, int litros, double monto) throws ExcepcionesPortsOut {
 
 		String consultaRegistro = "insert into registro_compra(fecha, cantidadLitros, monto) values(?,?,?)";
-		try {
-			Connection dbconn = this.connStr.open();
-			PreparedStatement statement = dbconn.prepareStatement(consultaRegistro);
+		try (Connection dbconn = this.connStr.open();
+				PreparedStatement statement = dbconn.prepareStatement(consultaRegistro)) {
 
 			Timestamp timestamp = Timestamp.valueOf(fecha);
 			statement.setTimestamp(1, timestamp);

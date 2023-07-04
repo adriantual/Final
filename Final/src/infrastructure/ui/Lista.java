@@ -1,6 +1,7 @@
 package infrastructure.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Toolkit;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -20,12 +21,10 @@ public class Lista extends JFrame {
 
 		this.miEstacion = miEstacion;
 
-		// Configuración básica del JFrame
 		setTitle("Lista de Ventas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 400);
 
-		// Creación de la JTable
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("Fecha Venta");
 		model.addColumn("Total Litros Cargados");
@@ -40,11 +39,11 @@ public class Lista extends JFrame {
 
 		ventasTable = new JTable(model);
 
-		// Agregar la JTable a un JScrollPane para permitir el desplazamiento de los
-		// datos
 		JScrollPane scrollPane = new JScrollPane(ventasTable);
 		add(scrollPane, BorderLayout.CENTER);
 		setVisible(true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes\\images.png"));
+		this.setTitle("LISTADO DE VENTAS");
 
 	}
 }

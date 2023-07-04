@@ -14,7 +14,9 @@ public abstract class Nafta {
 
 	public abstract double calcularPrecio(int cantidadLitros, LocalDateTime fecha);
 
-	public abstract String tipo();
+	public String tipo() {
+		return this.nombre;
+	}
 
 	public boolean esDeEsteTipo(String tipo) {
 

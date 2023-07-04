@@ -39,4 +39,17 @@ public class Ventas {
 		return "NO";
 	}
 
+//	public LocalDateTime fechaOut() {
+//		return this.fechaCompra;
+//	}
+//
+//	public int CantidadLitrosOut() {
+//		return cantidadLitros;
+//	}
+//
+//	public double totalOut() {
+//		return total;
+//
+//	}
+
 }
